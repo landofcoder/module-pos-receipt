@@ -1,0 +1,565 @@
+<link href="<?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ echo $block->getAssetUrl('Lof_PosReceipt::css/preview.css'); ?>" type="text/css" rel="stylesheet" />
+<?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+$model = $block->getReceipt();
+$url = str_replace("/index.php/", "/", $block->getDomain());
+?>
+<div class="container">
+    <div class="header">
+        <div class="row"><?= strtoupper($model->getReceiptTitle()); ?></div>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        if ($model->getLogoDisplay() == 1) {
+            if ($model->getIcon()) {
+                $height = 75;
+                $width = 200;
+                $alt = "image";
+                if ($model->getLogoWidth()) {
+                    $width = $model->getLogoWidth();
+                }
+                if ($model->getLogoHeight()) {
+                    $height = $model->getLogoHeight();
+                }
+                if ($model->getLogoAlt()) {
+                    $alt = $model->getLogoAlt();
+                } ?>
+                <img style="height:<?= $height."px"?>; width:<?= $width."px"?>;" class="logo" src="<?= $url."media/pos/receipt/icon/".$model->getIcon()?>" alt="<?= $alt?>">
+                <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+            }
+        }
+        ?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getOutletNameDisplay() == 1) {
+            ?>
+            <div class="row"><?= __("Outlet Name") ?></div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getDateDisplay() == 1) {
+            ?>
+            <div class="row"><?= date("M/d/Y h:i:sa") ?></div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getOrderIdDisplay() == 1) {
+            ?>
+            <div class="row"><?= $model->getOrderIdLabel()." : xxxxxxxxxxxx" ?></div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }
+        if ($model->getCashierNameDisplay() == 1) {
+            echo "John Doe";
+        }
+        if ($model->getHeaderContent()) {
+            echo $block->getCmsFilterContent($model->getHeaderContent());
+        } ?>
+    </div>
+    <div class="content">
+        <table>
+            <tr>
+                <td class="left">......................</td>
+                <td class="mid">...</td>
+                <td class="right">......</td>
+            </tr>
+            <tr>
+                <td class="left">.............</td>
+                <td class="mid">...</td>
+                <td class="right">......</td>
+            </tr>
+        </table>
+    </div>
+    <div class="total-container">
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getSubtotalDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= $model->getSubtotalLabel()?></span>
+                <span class="value">.........</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getDiscountDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= $model->getDiscountLabel()?></span>
+                <span class="value">.........</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getTaxDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= $model->getTaxLabel()?></span>
+                <span class="value">.........</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <div class="row">
+            <span class="label"><b><?= $model->getGrandTotalLabel()?></b></span>
+            <span class="value">.........</span>
+        </div>
+    </div>
+    <div class="footer">
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getCreditAmountDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= $model->getCreditLabel()?></span>
+                <span class="value">.........</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getChangeAmountDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= $model->getChangeLabel()?></span>
+                <span class="value">.........</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getCashierNameDisplay() == 1) {
+            ?>
+            <div class="row">
+                <span class="label"><?= strtoupper($model->getCashierLabel())?></span>
+                <span class="value">John Doe</span>
+            </div>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+        }?>
+        <div class="row outlet-address">
+            <span class="label">...........................</span><br>
+            <?php
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_PosReceipt
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */ if ($model->getFooterContent()) {
+            echo $block->getCmsFilterContent($model->getFooterContent());
+        } ?>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,31 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="Lof\PosReceipt\Model\ResourceModel\Receipt\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+       <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="lof_posreceipt_listing_data_source" xsi:type="string">Lof\PosReceipt\Model\ResourceModel\Receipt\Grid\Collection</item>
+            </argument>
+            <argument name="mainTable" xsi:type="string">lof_pos_receipt</argument>
+        </arguments>
+    </virtualType>
+     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="lof_posreceipt_listing_data_source" xsi:type="string">Lof\PosReceipt\Model\ResourceModel\Receipt\Grid\Collection</item>
+                <item name="lof_posreceipt_form_data_source" xsi:type="string">Lof\PosReceipt\Model\ResourceModel\Receipt\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Lof\PosReceipt\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">pos/receipt/icon</argument>
+            <argument name="basePath" xsi:type="string">icon</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Lof\PosReceipt\Api\ReceiptManagementInterface" type="Lof\PosReceipt\Model\ReceiptManagement"/>
+</config>

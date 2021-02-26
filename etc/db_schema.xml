@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="lof_pos_receipt Table" engine="innodb" name="lof_pos_receipt" resource="default">
+        <column comment="Receipt Id" identity="true" name="receipt_id" nullable="false" padding="6" unsigned="false" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="receipt_id"/>
+        </constraint>
+        <column name="receipt_title" nullable="true" xsi:type="varchar"/>
+        <column name="icon" nullable="true" xsi:type="varchar"/>
+        <column name="status" nullable="false" xsi:type="int"/>
+        <column name="outlet_name_display" nullable="false" xsi:type="boolean"/>
+        <column name="date_display" nullable="false" xsi:type="boolean"/>
+        <column name="order_id_display" nullable="false" xsi:type="boolean"/>
+        <column name="order_id_label" nullable="true" xsi:type="varchar"/>
+        <column name="customer_display" nullable="false" xsi:type="boolean"/>
+        <column name="subtotal_display" nullable="false" xsi:type="boolean"/>
+        <column name="subtotal_label" nullable="true" xsi:type="varchar"/>
+        <column name="discount_display" nullable="false" xsi:type="boolean"/>
+        <column name="discount_label" nullable="true" xsi:type="varchar"/>
+        <column name="tax_display" nullable="false" xsi:type="boolean"/>
+        <column name="tax_label" nullable="true" xsi:type="varchar"/>
+        <column name="credit_amount_display" nullable="false" xsi:type="boolean"/>
+        <column name="credit_label" nullable="true" xsi:type="varchar"/>
+        <column name="change_amount_display" nullable="false" xsi:type="boolean"/>
+        <column name="change_label" nullable="true" xsi:type="varchar"/>
+        <column name="cashier_name_display" nullable="false" xsi:type="boolean"/>
+        <column name="cashier_label" nullable="true" xsi:type="varchar"/>
+        <column name="outlet_address_display" nullable="false" xsi:type="boolean"/>
+        <column name="grand_total_label" nullable="true" xsi:type="varchar"/>
+        <column name="logo_display" nullable="false" xsi:type="boolean"/>
+        <column name="logo_width" nullable="true" xsi:type="int"/>
+        <column name="logo_height" nullable="true" xsi:type="int"/>
+        <column name="logo_alt" nullable="true" xsi:type="int"/>
+        <column name="header_content" nullable="true" xsi:type="text"/>
+        <column name="footer_content" nullable="true" xsi:type="text"/>
+    </table>
+    <table comment="lof_pos_receipt_outlet Table" engine="innodb" name="lof_pos_receipt_outlet" resource="default">
+        <column comment="Receipt Id" identity="true" name="receipt_id" nullable="false" padding="6" unsigned="false" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="receipt_id"/>
+        </constraint>
+        <column name="outlet_id" nullable="true" xsi:type="smallint"/>
+    </table>
+</schema>
