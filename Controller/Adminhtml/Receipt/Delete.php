@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -25,18 +25,25 @@
  */
 namespace Lof\PosReceipt\Controller\Adminhtml\Receipt;
 
+use Lof\PosReceipt\Controller\Adminhtml\Receipt;
+use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\Controller\ResultInterface;
 
-class Delete extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpPostActionInterface
+/**
+ * Class Delete
+ * @package Lof\PosReceipt\Controller\Adminhtml\Receipt
+ */
+class Delete extends Receipt implements HttpPostActionInterface
 {
     /**
      * Delete action
      *
-     * @return \Magento\Framework\Controller\ResultInterface
+     * @return ResultInterface
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         // check if we know what should be deleted
         $id = $this->getRequest()->getParam('receipt_id');
@@ -61,5 +68,13 @@ class Delete extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements Htt
         $this->messageManager->addErrorMessage(__('We can\'t find a Receipt to delete.'));
         // go to grid
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Lof_PosReceipt::receipt_view');
     }
 }

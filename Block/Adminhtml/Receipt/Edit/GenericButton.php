@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -20,7 +20,9 @@
  */
 namespace Lof\PosReceipt\Block\Adminhtml\Receipt\Edit;
 
-use Magento\Search\Controller\RegistryConstants;
+use Magento\Backend\Block\Widget\Context;
+use Magento\Framework\Registry;
+use Magento\Framework\UrlInterface;
 
 /**
  * Class GenericButton
@@ -30,26 +32,26 @@ class GenericButton
     /**
      * Url Builder
      *
-     * @var \Magento\Framework\UrlInterface
+     * @var UrlInterface
      */
     protected $urlBuilder;
 
     /**
      * Registry
      *
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $registry;
 
     /**
      * Constructor
      *
-     * @param \Magento\Backend\Block\Widget\Context $context
-     * @param \Magento\Framework\Registry $registry
+     * @param Context $context
+     * @param Registry $registry
      */
     public function __construct(
-        \Magento\Backend\Block\Widget\Context $context,
-        \Magento\Framework\Registry $registry
+        Context $context,
+        Registry $registry
     ) {
         $this->urlBuilder = $context->getUrlBuilder();
         $this->registry = $registry;
@@ -62,8 +64,7 @@ class GenericButton
      */
     public function getReceiptId()
     {
-        $data = $this->registry->registry('receipt_id');
-        return $data;
+        return $this->registry->registry('receipt_id');
     }
 
     /**

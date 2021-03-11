@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -21,6 +21,8 @@
 
 declare(strict_types=1);
 namespace Lof\PosReceipt\Controller\Adminhtml;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Stdlib\DateTime\Filter\Date;
 use Magento\Store\Model\Store;
 /**
  * Catalog Receipt controller
@@ -34,16 +36,16 @@ abstract class Receipt extends \Magento\Backend\App\Action
      */
     const ADMIN_RESOURCE = 'Lof_PosReceipt::Receipt';
     /**
-     * @var \Magento\Framework\Stdlib\DateTime\Filter\Date
+     * @var Date
      */
     protected $dateFilter;
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Stdlib\DateTime\Filter\Date|null $dateFilter
+     * @param Context $context
+     * @param Date|null $dateFilter
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter = null
+        Context $context,
+        Date $dateFilter = null
     ) {
         $this->dateFilter = $dateFilter;
         parent::__construct($context);

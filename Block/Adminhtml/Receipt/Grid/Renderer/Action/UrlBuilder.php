@@ -21,21 +21,24 @@
 
 namespace Lof\PosReceipt\Block\Adminhtml\Receipt\Grid\Renderer\Action;
 
+use Magento\Framework\UrlInterface;
+
 /**
  * Url builder class used to compose dynamic urls.
  */
 class UrlBuilder
 {
     /**
-     * @var \Magento\Framework\UrlInterface
+     * @var UrlInterface
      */
     protected $frontendUrlBuilder;
 
     /**
-     * @param \Magento\Framework\UrlInterface $frontendUrlBuilder
+     * @param UrlInterface $frontendUrlBuilder
      */
-    public function __construct(\Magento\Framework\UrlInterface $frontendUrlBuilder)
-    {
+    public function __construct(
+        UrlInterface $frontendUrlBuilder
+    ) {
         $this->frontendUrlBuilder = $frontendUrlBuilder;
     }
 
