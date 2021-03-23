@@ -22,6 +22,6 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Lof_PosReceipt::manage_receipt" title="Receipts" module="Lof_PosReceipt" sortOrder="9999" parent="Lof_Pos::pos" action="lof_posreceipt/receipt/index" resource="Lof_PosReceipt::manage_receipt"/>
+        <add id="Lof_PosReceipt::manage_receipt" title="Receipts" module="Lof_PosReceipt" sortOrder="9999" parent="Lof_Pos::pos" action="lof_posreceipt/receipt/index" resource="Lof_PosReceipt::receipt"/>
     </menu>
 </config>

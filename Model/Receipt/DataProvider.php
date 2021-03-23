@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -21,8 +21,12 @@
 
 namespace Lof\PosReceipt\Model\Receipt;
 
+use Lof\PosReceipt\Model\Receipt;
 use Lof\PosReceipt\Model\ResourceModel\Receipt\CollectionFactory;
+use Magento\Cms\Model\Page;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use \Magento\Store\Model\StoreManagerInterface;
 
@@ -31,7 +35,13 @@ use \Magento\Store\Model\StoreManagerInterface;
  */
 class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 {
+    /**
+     * @var
+     */
     protected $collection;
+    /**
+     * @var
+     */
     protected $_storeManager;
 
     /**
@@ -43,13 +53,25 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @var array
      */
     protected $loadedData;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+    /**
+     * @var Receipt
+     */
+    private $receipt;
+
 
     /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
+     * DataProvider constructor.
+     * @param $name
+     * @param $primaryFieldName
+     * @param $requestFieldName
      * @param CollectionFactory $receiptCollectionFactory
      * @param DataPersistorInterface $dataPersistor
+     * @param StoreManagerInterface $storeManager
+     * @param Receipt $receipt
      * @param array $meta
      * @param array $data
      * @param PoolInterface|null $pool
@@ -61,6 +83,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         CollectionFactory $receiptCollectionFactory,
         DataPersistorInterface $dataPersistor,
         StoreManagerInterface $storeManager,
+        Receipt $receipt,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
@@ -68,8 +91,9 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         $this->collection = $receiptCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
-        $this->meta = $this->prepareMeta($this->meta);        
+        $this->meta = $this->prepareMeta($this->meta);
         $this->storeManager = $storeManager;
+        $this->receipt = $receipt;
     }
 
     /**
@@ -83,10 +107,10 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         return $meta;
     }
 
+
     /**
-     * Get data
-     *
-     * @return mixed
+     * @return array
+     * @throws NoSuchEntityException
      */
     public function getData()
     {
@@ -94,7 +118,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
             return $this->loadedData;
         }
         $items = $this->collection->getItems();
-        /** @var $page \Magento\Cms\Model\Page */
+        /** @var $page Page */
         foreach ($items as $page) {
             $this->loadedData[$page->getId()] = $page->getData();
         }
@@ -106,7 +130,7 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
             $this->loadedData[$page->getId()] = $page->getData();
             $this->dataPersistor->clear('lof_posreceipt_receipt');
         }
-        //Replace icon with fileuploader field name
+        //Replace icon with file uploader field name
         foreach ($items as $model) {
             $this->loadedData[$model->getId()] = $model->getData();
             if ($model->getIcon()) {
@@ -118,15 +142,15 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
         }
         return $this->loadedData;
     }
+
+
     /**
-     * Get data
-     *
      * @return string
+     * @throws NoSuchEntityException
      */
     public function getMediaUrl()
     {
-        $mediaUrl = $this->storeManager->getStore()
-            ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'pos/receipt/icon/';
-        return $mediaUrl;
+        return $this->storeManager->getStore()
+            ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA).$this->receipt::ICON_URL_PATH;
     }
 }

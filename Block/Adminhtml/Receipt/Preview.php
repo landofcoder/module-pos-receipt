@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -20,30 +20,59 @@
  */
 namespace Lof\PosReceipt\Block\Adminhtml\Receipt;
 
+use Magento\Cms\Model\Template\FilterProvider;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\View\Element\Template;
 use Lof\PosReceipt\Model\ReceiptFactory;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\Template\Context;
 
+/**
+ * Class Preview
+ * @package Lof\PosReceipt\Block\Adminhtml\Receipt
+ */
 class Preview extends \Magento\Framework\View\Element\Template
 {
+    /**
+     * @var ReceiptFactory|mixed
+     */
     private $ReceiptFactory = null;
+    /**
+     * @var UrlInterface
+     */
     protected $urlBuilder;
+    /**
+     * @var FilterProvider
+     */
+    private $_filterProvider;
+
+    /**
+     * Preview constructor.
+     * @param Context $context
+     * @param ReceiptFactory $ReceiptFactory
+     * @param UrlInterface $urlBuilder
+     * @param FilterProvider $filterProvider
+     * @param array $data
+     */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        Context $context,
         ReceiptFactory $ReceiptFactory,
         UrlInterface $urlBuilder,
-        \Magento\Cms\Model\Template\FilterProvider $filterProvider,
+        FilterProvider $filterProvider,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->urlBuilder = $urlBuilder;
         $this->_filterProvider = $filterProvider;
         $this->ReceiptFactory = $ReceiptFactory
-            ?: \Magento\Framework\App\ObjectManager::getInstance()->get(ReceiptFactory::class);
+            ?: ObjectManager::getInstance()->get(ReceiptFactory::class);
     }
+
+    /**
+     *
+     */
     public function execute()
     {
-        $model = $this->ReceiptFactory->create();
     }
 
     /**
@@ -54,25 +83,42 @@ class Preview extends \Magento\Framework\View\Element\Template
      */
     public function getCmsFilterContent($value = '')
     {
-        $html = $this->_filterProvider->getPageFilter()->filter($value);
-        return $html;
+        return $this->_filterProvider->getPageFilter()->filter($value);
     }
+
+    /**
+     * @param $asset
+     * @return mixed
+     */
     public function getAssetUrl($asset)
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $objectManager = ObjectManager::getInstance();
         $assetRepository = $objectManager->get('Magento\Framework\View\Asset\Repository');
         return $assetRepository->createAsset($asset)->getUrl();
     }
+
+    /**
+     * @return mixed
+     */
     public function getReceipt()
     {
         $model = $this->ReceiptFactory->create();
         $id = $this->getRequest()->getParam('receipt_id');
         return $model->load($id);
     }
+
+    /**
+     * @return string
+     */
     public function getDomain()
     {
         return $this->urlBuilder->getBaseUrl();
     }
+
+    /**
+     * @param array $dataSource
+     * @return array
+     */
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {

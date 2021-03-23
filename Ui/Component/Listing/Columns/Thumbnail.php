@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -21,20 +21,36 @@
 namespace Lof\PosReceipt\Ui\Component\Listing\Columns;
 
 use Magento\Catalog\Helper\Image;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\Component\Listing\Columns\Column;
 
+/**
+ * Class Thumbnail
+ * @package Lof\PosReceipt\Ui\Component\Listing\Columns
+ */
 class Thumbnail extends Column
 {
+    /**
+     *
+     */
     const ALT_FIELD = 'title';
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var StoreManagerInterface
      */
     protected $storeManager;
+    /**
+     * @var Image
+     */
+    private $imageHelper;
+    /**
+     * @var UrlInterface
+     */
+    private $urlBuilder;
 
     /**
      * @param ContextInterface $context
@@ -61,11 +77,11 @@ class Thumbnail extends Column
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
+
     /**
-     * Prepare Data Source
-     *
      * @param array $dataSource
-     * @return mixed
+     * @return array
+     * @throws NoSuchEntityException
      */
     public function prepareDataSource(array $dataSource)
     {
@@ -76,7 +92,7 @@ class Thumbnail extends Column
                 $path = "pos/receipt/icon/";
                 if ($item[$fieldName] != '') {
                     $url = $this->storeManager->getStore()->getBaseUrl(
-                            \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                            UrlInterface::URL_TYPE_MEDIA
                         ) . $path.$item[$fieldName];
                 }
                 $item[$fieldName . '_src'] = $url;

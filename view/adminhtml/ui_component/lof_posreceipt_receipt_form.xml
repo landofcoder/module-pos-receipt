@@ -35,11 +35,11 @@
             </item>
         </argument>
     </dataSource>
-    <fieldset name="general" sortOrder="20">  
+    <fieldset name="general" sortOrder="20">
         <settings>
             <collapsible>false</collapsible>
             <label translate="true">General Settings</label>
-        </settings>    
+        </settings>
         <field name="receipt_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -225,14 +225,14 @@
                 <item name="config" xsi:type="array">
                     <item name="notice" xsi:type="string" translate="true">If empty then order id label will be "Discount"</item>
                 </item>
-                
+
             </argument>
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Discount Label</label>
                 <dataScope>discount_label</dataScope>
             </settings>
-        </field> 
+        </field>
         <field name="discount_display" sortOrder="11" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -482,7 +482,7 @@
         <settings>
             <label>Receipt Logo</label>
             <collapsible>true</collapsible>
-        </settings> 
+        </settings>
         <field name = "logo_width" sortOrder ="4" formElement = "input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -555,6 +555,7 @@
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="formElement" xsi:type="string">fileUploader</item>
                     <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="previewTmpl" xsi:type="string">Magento_Catalog/image-preview</item>
                     <item name="required" xsi:type="boolean">false</item>
                     <item name="sortOrder" xsi:type="number">2</item>
                     <item name="uploaderConfig" xsi:type="array">
@@ -568,7 +569,7 @@
         <settings>
             <collapsible>true</collapsible>
             <label>Header Content</label>
-        </settings> 
+        </settings>
          <field name="header_content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -588,7 +589,7 @@
         <settings>
         <collapsible>true</collapsible>
             <label>Footer Content</label>
-        </settings> 
+        </settings>
          <field name="footer_content">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

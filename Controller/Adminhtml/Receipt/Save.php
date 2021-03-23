@@ -1,41 +1,56 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
  * @license    http://www.landofcoder.com/LICENSE-1.0.html
  */
 namespace Lof\PosReceipt\Controller\Adminhtml\Receipt;
+use Lof\PosReceipt\Controller\Adminhtml\Receipt;
+use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action\Context;
 use Lof\PosReceipt\Model\ReceiptFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\Filter\Date;
+
 /**
  * Save Lof Receipt action.
  */
-class Save extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpPostActionInterface
+class Save extends Receipt implements HttpPostActionInterface
 {
+    /**
+     * @var DataPersistorInterface
+     */
     protected $dataPersistor;
+    /**
+     * @var ReceiptFactory|mixed
+     */
     private $ReceiptFactory = null;
-    private $receiptRepository = null;
+
+    /**
+     * Save constructor.
+     * @param Date $date
+     * @param Context $context
+     * @param DataPersistorInterface $dataPersistor
+     * @param ReceiptFactory $ReceiptFactory
+     */
     public function __construct(
-        \Magento\Framework\Stdlib\DateTime\Filter\Date  $date = null,
+        Date  $date = null,
         Context $context,
         DataPersistorInterface $dataPersistor,
         ReceiptFactory $ReceiptFactory
@@ -46,9 +61,14 @@ class Save extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpP
         parent::__construct($context, $date);
     }
 
+
+    /**
+     * @return Redirect|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void
+     * @throws \Exception
+     */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
         if ($data) {
@@ -79,9 +99,6 @@ class Save extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpP
             if (empty($data['grand_total_label'])) {
                 $data['grand_total_label'] = "Grand total";
             }
-            // if (!empty($data['cashier_label'])) {
-            //     $data['cashier_label'] = "Cashier";
-            // }
             if (empty($data['subtotal_label'])) {
                 $data['subtotal_label'] = "Subtotal";
             }
@@ -125,6 +142,11 @@ class Save extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpP
         }
         return $resultRedirect->setPath('*/*/');
     }
+
+    /**
+     * @param array $rawData
+     * @return array
+     */
     public function _filterFoodData(array $rawData)
     {
         $data = $rawData;
@@ -134,5 +156,13 @@ class Save extends \Lof\PosReceipt\Controller\Adminhtml\Receipt implements HttpP
             $data['icon'] = null;
         }
         return $data;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Lof_PosReceipt::receipt_save');
     }
 }

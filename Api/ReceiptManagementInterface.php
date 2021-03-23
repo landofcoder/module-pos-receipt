@@ -20,6 +20,10 @@
  */
 namespace Lof\PosReceipt\Api;
 
+/**
+ * Interface ReceiptManagementInterface
+ * @package Lof\PosReceipt\Api
+ */
 interface ReceiptManagementInterface
 {
 
@@ -29,6 +33,6 @@ interface ReceiptManagementInterface
      * @param string $outletId
      * @return mixed
      */
-    
+
     public function getReceipt($outletId);
 }

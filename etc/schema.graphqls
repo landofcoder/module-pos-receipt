@@ -1,0 +1,38 @@
+
+type Query {
+
+    LofReceipt (outlet_id: Int!) : Receipt @resolver( class: "Lof\\PosReceipt\\Model\\Resolver\\Receipt")
+
+}
+
+type Receipt {
+    receipt_id  : Int
+    receipt_title  : String
+    icon : String
+    status : Boolean
+    outlet_name_display : Boolean
+    date_display: Boolean
+    order_id_display: Boolean
+    customer_display: Boolean
+    subtotal_display: Boolean
+    subtotal_label: String
+    discount_display: Boolean
+    discount_label: String
+    tax_display: Boolean
+    tax_label : String
+    credit_amount_display: Boolean
+    credit_label: String
+    change_amount_display: Boolean
+    change_label: String
+    cashier_name_display: Boolean
+    cashier_label: String
+    outlet_address_display: Boolean
+    grand_total_label: String
+    logo_display: Boolean
+    logo_width: Int
+    logo_height: Int
+    logo_alt: String
+    header_content: String
+    footer_content: String
+}
+

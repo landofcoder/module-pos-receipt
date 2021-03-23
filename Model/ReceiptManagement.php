@@ -1,18 +1,18 @@
 <?php
 /**
  * Landofcoder
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * This source file is subject to the Landofcoder.com license that is
  * available through the world-wide-web at this URL:
  * http://www.landofcoder.com/license-agreement.html
- * 
+ *
  * DISCLAIMER
- * 
+ *
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- * 
+ *
  * @category   Landofcoder
  * @package    Lof_PosReceipt
  * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
@@ -20,36 +20,63 @@
  */
 namespace Lof\PosReceipt\Model;
 
-use Lof\PosReceipt\Model\Receipt;
-use Magento\Backend\App\Action\Context;
+use Exception;
 use Lof\Outlet\Model\Outlet;
 use Lof\PosReceipt\Api\ReceiptManagementInterface;
+use Magento\Cms\Model\Template\FilterProvider;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\UrlInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * Class ReceiptManagement
+ * @package Lof\PosReceipt\Model
+ */
 class ReceiptManagement implements ReceiptManagementInterface
 {
+    /**
+     * @var Receipt
+     */
     private $receipt;
+    /**
+     * @var Outlet
+     */
     private $outlet;
     /**
-     * @var \Magento\Cms\Model\Template\FilterProvider
+     * @var FilterProvider
      */
     protected $_filterProvider;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
 
+    /**
+     * ReceiptManagement constructor.
+     * @param Receipt $receipt
+     * @param FilterProvider $filterProvider
+     * @param Outlet $outlet
+     * @param StoreManagerInterface $storeManager
+     */
     public function __construct(
-        Context $context,
         Receipt $receipt,
-        \Magento\Cms\Model\Template\FilterProvider $filterProvider,
-        Outlet $outlet
+        FilterProvider $filterProvider,
+        Outlet $outlet,
+        StoreManagerInterface $storeManager
     ) {
         $this->receipt = $receipt;
         $this->_filterProvider = $filterProvider;
         $this->outlet = $outlet;
+        $this->storeManager = $storeManager;
+
     }
+
     /**
      * {@inheritdoc}
+     * @throws Exception
      */
     public function getReceipt($outletId)
     {
-
         $outlet = $this->outlet->load($outletId);
         $receiptId = $outlet->getSelectReceipt();
         $receipt = $this->receipt->load($receiptId);
@@ -57,20 +84,29 @@ class ReceiptManagement implements ReceiptManagementInterface
         $footer_content =  $this->getCmsFilterContent($receipt->getFooterContent());
         $receipt->setHeaderContent($header_content);
         $receipt->setFooterContent($footer_content);
-        $arrResult = [];
-        $arrResult[]['data'] = $receipt->getData();
-        return $arrResult;
+        $data = $receipt->getData();
+        $data['icon'] = $this->getMediaUrl().$receipt->getIcon();
+        return $data;
     }
 
+
     /**
-     * Prepare HTML content
-     *
+     * @param string $value
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getCmsFilterContent($value = '')
     {
-        $html = $this->_filterProvider->getPageFilter()->filter($value);
-        return $html;
+        return $this->_filterProvider->getPageFilter()->filter($value);
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getMediaUrl()
+    {
+        return $this->storeManager->getStore()
+                ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA).$this->receipt::ICON_URL_PATH;
     }
 }
