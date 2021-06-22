@@ -30,15 +30,13 @@ use Magento\Framework\UrlInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use \Magento\Store\Model\StoreManagerInterface;
 
-/**
- * Class DataProvider
- */
 class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
 {
     /**
      * @var
      */
     protected $collection;
+
     /**
      * @var
      */
@@ -53,21 +51,22 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @var array
      */
     protected $loadedData;
+
     /**
      * @var StoreManagerInterface
      */
     private $storeManager;
+
     /**
      * @var Receipt
      */
     private $receipt;
 
-
     /**
      * DataProvider constructor.
-     * @param $name
-     * @param $primaryFieldName
-     * @param $requestFieldName
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
      * @param CollectionFactory $receiptCollectionFactory
      * @param DataPersistorInterface $dataPersistor
      * @param StoreManagerInterface $storeManager
@@ -75,6 +74,8 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
      * @param array $meta
      * @param array $data
      * @param PoolInterface|null $pool
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         $name,
@@ -90,7 +91,15 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     ) {
         $this->collection = $receiptCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
+        parent::__construct(
+            $name,
+            $primaryFieldName,
+            $requestFieldName,
+            $meta,
+            $data,
+            $pool
+        );
+
         $this->meta = $this->prepareMeta($this->meta);
         $this->storeManager = $storeManager;
         $this->receipt = $receipt;
@@ -106,7 +115,6 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     {
         return $meta;
     }
-
 
     /**
      * @return array
@@ -135,14 +143,13 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
             $this->loadedData[$model->getId()] = $model->getData();
             if ($model->getIcon()) {
                 $m['icon'][0]['name'] = $model->getIcon();
-                $m['icon'][0]['url'] = $this->getMediaUrl().$model->getIcon();
+                $m['icon'][0]['url'] = $this->getMediaUrl() . $model->getIcon();
                 $fullData = $this->loadedData;
                 $this->loadedData[$model->getId()] = array_merge($fullData[$model->getId()], $m);
             }
         }
         return $this->loadedData;
     }
-
 
     /**
      * @return string
@@ -151,6 +158,6 @@ class DataProvider extends \Magento\Ui\DataProvider\ModifierPoolDataProvider
     public function getMediaUrl()
     {
         return $this->storeManager->getStore()
-            ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA).$this->receipt::ICON_URL_PATH;
+                ->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $this->receipt::ICON_URL_PATH;
     }
 }
