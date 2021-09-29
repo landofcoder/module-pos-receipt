@@ -1,15 +1,17 @@
 {
-    "name": "lof/PosReceipt",
-    "description": "",
+    "name": "landofcoder/module-pos-receipt",
+    "description": "Magento 2 POS receipt management, support API for POS app",
     "type": "magento2-module",
     "license": "proprietary",
     "authors": [
         {
-            "email": "info@mage2gen.com",
-            "name": "Mage2Gen"
+            "email": "info@landofcoder.com",
+            "name": "Landofcoder",
+            "homepage":"https://landofcoder.com"
         }
     ],
     "minimum-stability": "dev",
+    "version": "1.0.0",
     "require": {},
     "autoload": {
         "psr-4": {
